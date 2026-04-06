@@ -2,27 +2,27 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-    - name: Install dependencies
-      run: |
-        cd cath-backend
-        npm install
+      - name: Install Backend Dependencies
+        run: |
+          cd cath backend
+          npm install
 
-    - name: Run server check
-      run: |
-        cd cath-backend
-        node server.js
+      - name: Check Backend (no crash)
+        run: |
+          cd cath backend
+          node -e "require('./server.js')"
